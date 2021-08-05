@@ -45,6 +45,18 @@ body {
     font-family: 'Ramabhadra', sans-serif;
 }
 
+.key:hover {
+    opacity: 0.85;
+    cursor: pointer;
+}
+
+.key:active {
+    opacity: 0.85;
+    position: relative;
+    top: 5px;
+    box-shadow: none;
+}
+
 #clear, #del {
     background: #ff0000ba;
 }
