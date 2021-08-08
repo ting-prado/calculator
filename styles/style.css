@@ -2,8 +2,13 @@ body {
     background: darkcyan;
 }
 
+@font-face {
+    font-family: 'Digital';
+    src: url(Open\ 24\ Display\ St.ttf);
+}
+
 #entire-calc {
-    border: 2px solid #153348;
+    border: 2px solid #0c1d29;
     box-shadow: 0 5px 5px 3px #0e202d;
     width: 30em;
     height: 34em;
@@ -12,12 +17,22 @@ body {
     margin: 1em auto;
 }
 
-#display {
+#display-screen {
     background: #d9fffd;
-    border: 2px solid gray;
+    border: 2px solid black;
     margin: 1em 1em 0.6em 1em;
     height: 6.5em;
     border-radius: 10px;
+}
+
+#display {
+    text-align: end;
+    user-select: none;
+    margin-top: 0.9em;
+    margin-right: 0.1em;
+    margin-left: 0.1em;
+    font-size: 50px;
+    font-family: 'Digital';
 }
 
 #keys {
@@ -32,6 +47,7 @@ body {
 
 .key {
     background: silver;
+    user-select: none;
     color: black;
     height: 1.9em;
     width: 1.9em;
