@@ -4,7 +4,7 @@ body {
 
 @font-face {
     font-family: 'Digital';
-    src: url(Open\ 24\ Display\ St.ttf);
+    src: url(Digital7-1e1Z.ttf);
 }
 
 #entire-calc {
@@ -23,16 +23,25 @@ body {
     margin: 1em 1em 0.6em 1em;
     height: 6.5em;
     border-radius: 10px;
+    font-family: 'Digital';
+    user-select: none;
+    text-align: end;
 }
 
-#display {
-    text-align: end;
+#bot-display {
     user-select: none;
-    margin-top: 0.9em;
+    margin-top: 0.1em;
     margin-right: 0.1em;
     margin-left: 0.1em;
     font-size: 50px;
-    font-family: 'Digital';
+    height: 50px;
+}
+
+#top-display {
+    margin: 0.1em 0.15em 0 0.15em;
+    font-size: 35px;
+    text-align: end;
+    height: 35px;
 }
 
 #keys {

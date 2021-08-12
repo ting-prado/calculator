@@ -33,7 +33,8 @@ function divide(a,b) {
     return a/b;
 }
 
-const display = document.querySelector('#display');
+const botDisplay = document.querySelector('#bot-display');
+const topDisplay = document.querySelector('#top-display');
 const keys = document.querySelectorAll('.key');
 keys.forEach(key => {
     key.addEventListener('click', inputNumber);
@@ -41,59 +42,101 @@ keys.forEach(key => {
 window.addEventListener('keydown', inputNumber);
 
 function inputNumber(e) {
-    if(display.textContent.length < 19 ){
+    if(botDisplay.textContent.length < 18 ){
         if(this.id == 'num1' || e.key == 1) {
-            display.textContent += '1';
+            botDisplay.textContent += '1';
         }
         else if(this.id == 'num2' || e.key == 2) {
-            display.textContent += '2';
+            botDisplay.textContent += '2';
         }
         else if(this.id == 'num3' || e.key == 3) {
-            display.textContent += '3';
+            botDisplay.textContent += '3';
         }
         else if(this.id == 'num4' || e.key == 4) {
-            display.textContent += '4';
+            botDisplay.textContent += '4';
         }
         else if(this.id == 'num5' || e.key == 5) {
-            display.textContent += '5';
+            botDisplay.textContent += '5';
         }
         else if(this.id == 'num6' || e.key == 6) {
-            display.textContent += '6';
+            botDisplay.textContent += '6';
         }
         else if(this.id == 'num7' || e.key == 7) {
-            display.textContent += '7';
+            botDisplay.textContent += '7';
         }
         else if(this.id == 'num8' || e.key == 8) {
-            display.textContent += '8';
+            botDisplay.textContent += '8';
         }
         else if(this.id == 'num9' || e.key == 9) {
-            display.textContent += '9';
+            botDisplay.textContent += '9';
         }
         else if(this.id == 'num0' || e.key == 0) {
-            display.textContent += '0';
+            botDisplay.textContent += '0';
         }
         else if(this.id == 'dec' || e.key == '.') {
-            if(display.textContent.includes('.') == false && display.textContent.length>0){
-                display.textContent += '.';
+            if(botDisplay.textContent.includes('.') == false && botDisplay.textContent.length>0){
+                botDisplay.textContent += '.';
             }
         }
     }
-    if(this.id == 'add' || e.key == '+') {
-        display.textContent += '+';
+    if(botDisplay.textContent.includes('+') == false && botDisplay.textContent.includes('-') == false && botDisplay.textContent.includes('*') == false && botDisplay.textContent.includes('/') == false){
+        if(this.id == 'add' || e.key == '+') {
+            operand1 = botDisplay.textContent;
+            if(operand1[operand1.length-1] == '.'){
+                topDisplay.textContent = `${operand1}0 +`
+            }
+            else {
+                topDisplay.textContent = `${operand1} +`
+            }
+            botDisplay.textContent = "";
+        }
+        else if(this.id == 'sub' || e.key == '-') {
+            operand1 = botDisplay.textContent;
+            if(operand1[operand1.length-1] == '.'){
+                topDisplay.textContent = `${operand1}0 -`
+            }
+            else {
+                topDisplay.textContent = `${operand1} -`
+            }
+            botDisplay.textContent = "";
+        }
+        else if(this.id == 'mul' || e.key == '*') {
+            operand1 = botDisplay.textContent;
+            if(operand1[operand1.length-1] == '.'){
+                topDisplay.textContent = `${operand1}0 *`
+            }
+            else {
+                topDisplay.textContent = `${operand1} *`
+            }
+            botDisplay.textContent = "";
+        }
+        else if(this.id == 'div' || e.key == '%' || e.key == '/') {
+            operand1 = botDisplay.textContent;
+            if(operand1[operand1.length-1] == '.'){
+                topDisplay.textContent = `${operand1}0 /`
+            }
+            else {
+                topDisplay.textContent = `${operand1} /`
+            }
+            botDisplay.textContent = "";
+        }
     }
-    else if(this.id == 'sub' || e.key == '-') {
-        display.textContent += '-';
-    }
-    else if(this.id == 'mul' || e.key == '*') {
-        display.textContent += '*';
-    }
-    else if(this.id == 'div' || e.key == '%' || e.key == '/') {
-        display.textContent += '/';
-    }
-    else if(this.id == 'del' || e.key == 'Backspace') {
-        display.textContent = display.textContent.slice(0, -1);
+    if(this.id == 'del' || e.key == 'Backspace') {
+        botDisplay.textContent = botDisplay.textContent.slice(0, -1);
+        if(botDisplay.textContent == ""){
+            botDisplay.textContent = topDisplay.textContent;
+            topDisplay.textContent = "";
+        }
     }
     else if(this.id == 'clear' || e.key == '' || e.key == 'c' || e.key == 'C') {
-        display.textContent = "";
+        botDisplay.textContent = "";
+        topDisplay.textContent = "";
+        operand1 = 0,
+        operand2 = 2,
+        answer = 0;
     }
+}
+
+function changeDisplays() {
+    
 }
