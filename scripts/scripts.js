@@ -1,7 +1,8 @@
-let operand1 = 0,
-    operand2 = 0,
-    answer = 0,
-    operation = "";
+let operand1 = "",
+    operand2 = "",
+    answer = "",
+    operation = "",
+    posState = 0;
 
 function operate(a, op, b) {
 if(op == '+') {
@@ -31,7 +32,12 @@ function multiply(a,b) {
 }
 
 function divide(a,b) {
-    return a/b;
+    if(b==0){
+        return 'UNDEFINED';
+    }
+    else{
+        return a/b;
+    }
 }
 
 const botDisplay = document.querySelector('#bot-display');
@@ -72,7 +78,7 @@ function inputNumber(e) {
         else if(this.id == 'num9' || e.key == 9) {
             botDisplay.textContent += '9';
         }
-        else if(this.id == 'num0' || e.key == 0) {
+        else if(this.id == 'num0' || e.code == 'Digit0') {
             botDisplay.textContent += '0';
         }
         else if(this.id == 'dec' || e.key == '.') {
@@ -133,15 +139,30 @@ function inputNumber(e) {
     else if(this.id == 'clear' || e.key == 'c' || e.key == 'C') {
         botDisplay.textContent = "";
         topDisplay.textContent = "";
-        operand1 = 0,
-        operand2 = 0,
-        answer = 0;
+        operand1 = "",
+        operand2 = "",
+        answer = "";
+    }
+    else if(this.id == 'posneg' || e.code == 'Space') {
+        if(posState == 0){
+            let newDisp = `-${botDisplay.textContent}`;
+            botDisplay.textContent = newDisp;
+            posState=1;
+        }
+        else{
+            let newDisp = botDisplay.textContent.slice(1,botDisplay.textContent.length);
+            botDisplay.textContent = newDisp;
+            posState=0;
+        }
     }
     else if(this.id == 'equal' || e.key == 'Enter' || e.key == '=') {
         operand2 = Number(botDisplay.textContent);
         operation = topDisplay.textContent[topDisplay.textContent.length-1];
         operate(operand1, operation, operand2);
         topDisplay.textContent = `${operand1} ${operation} ${operand2} =`;
+        if(answer.length>18){
+            answer = answer.toFix(18);
+        }
         botDisplay.textContent = answer;
     }
 }
