@@ -3,6 +3,15 @@ let operand1 = "",
     answer = "",
     operation = "";
 
+const botDisplay = document.querySelector('#bot-display');
+const topDisplay = document.querySelector('#top-display');
+const keys = document.querySelectorAll('.key');
+keys.forEach(key => {
+    key.addEventListener('click', inputNumber);
+});
+window.addEventListener('keydown', inputNumber);
+window.addEventListener('keydown', addEffect);
+
 function operate(a, op, b) {
 if(op == '+') {
     let sum = add(a,b);
@@ -62,15 +71,6 @@ function divide(a,b) {
         return a/b;
     }
 }
-
-const botDisplay = document.querySelector('#bot-display');
-const topDisplay = document.querySelector('#top-display');
-const keys = document.querySelectorAll('.key');
-keys.forEach(key => {
-    key.addEventListener('click', inputNumber);
-});
-window.addEventListener('keydown', inputNumber);
-window.addEventListener('keydown', addEffect);
 
 function inputNumber(e) {
         if(this.id == 'num1' || e.key == 1) {
@@ -160,7 +160,8 @@ function inputNumber(e) {
         topDisplay.textContent = "";
         operand1 = "",
         operand2 = "",
-        answer = "";
+        answer = "",
+        operation= "";
     }
     else if(this.id == 'posneg' || e.code == 'Space') {
         if(botDisplay.textContent[0] == '-'){
