@@ -1,8 +1,7 @@
 let operand1 = "",
     operand2 = "",
     answer = "",
-    operation = "",
-    posState = 0;
+    operation = "";
 
 function operate(a, op, b) {
 if(op == '+') {
@@ -164,23 +163,26 @@ function inputNumber(e) {
         answer = "";
     }
     else if(this.id == 'posneg' || e.code == 'Space') {
-        if(posState == 0){
-            let newDisp = `-${botDisplay.textContent}`;
-            botDisplay.textContent = newDisp;
-            posState=1;
-        }
-        else{
+        if(botDisplay.textContent[0] == '-'){
             let newDisp = botDisplay.textContent.slice(1,botDisplay.textContent.length);
             botDisplay.textContent = newDisp;
-            posState=0;
+        }
+        else{
+            let newDisp = `-${botDisplay.textContent}`;
+            botDisplay.textContent = newDisp;
         }
     }
-    else if((this.id == 'equal' || e.key == 'Enter' || e.key == '=') && botDisplay.textContent != "" && operand2 != "") {
+    else if(this.id == 'equal' || e.key == 'Enter' || e.key == '=') {
         operand2 = Number(botDisplay.textContent);
         operation = topDisplay.textContent[topDisplay.textContent.length-1];
-        answer = operate(operand1, operation, operand2);
-        topDisplay.textContent = `${operand1} ${operation} ${operand2} =`;
-        botDisplay.textContent = answer;
+        if(operand1 != "" && operand2 != "") {
+            answer = operate(operand1, operation, operand2);
+            topDisplay.textContent = `${operand1} ${operation} ${operand2} =`;
+            botDisplay.textContent = answer;
+            operand1="";
+            operand2="";
+        }
+        else return;
     }
 }
 
