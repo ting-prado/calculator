@@ -33,6 +33,8 @@ body {
     margin: 0.1em;
     font-size: 50px;
     min-height: 50px;
+    max-width: 10em;
+    overflow-wrap: break-word;
 }
 
 #top-display {
@@ -40,6 +42,7 @@ body {
     font-size: 35px;
     text-align: end;
     min-height: 35px;
+    overflow-wrap: break-word;
 }
 
 #keys {

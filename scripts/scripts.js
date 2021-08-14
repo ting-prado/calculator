@@ -6,17 +6,41 @@ let operand1 = "",
 
 function operate(a, op, b) {
 if(op == '+') {
-    answer = add(a,b);
+    let sum = add(a,b);
+    if(sum.length>15){
+        return sum.toFixed(4);
+    }
+    else{
+        return sum;
+    }
 }
 else if(op == '-') {
-    answer = subtract(a,b);
+    let difference = subtract(a,b);
+    if(difference.length>15){
+        return difference.toFixed(4);
+    }
+    else{
+        return difference;
+    }
 }
 else if(op == '*') {
-    answer = multiply(a,b);
+    let product = multiply(a,b);
+        if(product.length>15){
+            return product.toFixed(4);
+        }
+        else{
+            return product;
+        }
 }
 else if(op == '/') {
-    answer = divide(a,b);
-}
+    let quotient = divide(a,b);
+        if(quotient.length>15){
+            return quotient.toFixed(4);
+        }
+        else{
+            return quotient;
+        }
+    }
 }
 
 function add(a,b) {
@@ -50,7 +74,6 @@ window.addEventListener('keydown', inputNumber);
 window.addEventListener('keydown', addEffect);
 
 function inputNumber(e) {
-    if(botDisplay.textContent.length < 18 ){
         if(this.id == 'num1' || e.key == 1) {
             botDisplay.textContent += '1';
         }
@@ -86,9 +109,10 @@ function inputNumber(e) {
                 botDisplay.textContent += '.';
             }
         }
-    }
-    if(botDisplay.textContent.includes('+') == false && botDisplay.textContent.includes('-') == false && botDisplay.textContent.includes('*') == false && botDisplay.textContent.includes('/') == false){
-        if(this.id == 'add' || e.key == '+') {
+    if((botDisplay.textContent[0] == '-' && botDisplay.textContent.includes('+') == false && botDisplay.textContent.includes('*') == false && botDisplay.textContent.includes('/') == false) ||
+        (botDisplay.textContent.includes('e+') == true) || (botDisplay.textContent.includes('e-') == true) ||
+        (botDisplay.textContent.includes('+') == false && botDisplay.textContent.includes('-') == false && botDisplay.textContent.includes('*') == false && botDisplay.textContent.includes('/') == false)){
+        if((this.id == 'add' || e.key == '+') && botDisplay.textContent != "") {
             operand1 = Number(botDisplay.textContent);
             if(operand1[operand1.length-1] == '.'){
                 topDisplay.textContent = `${operand1}0 +`
@@ -98,7 +122,7 @@ function inputNumber(e) {
             }
             botDisplay.textContent = "";
         }
-        else if(this.id == 'sub' || e.key == '-') {
+        else if((this.id == 'sub' || e.key == '-') && botDisplay.textContent != "") {
             operand1 = botDisplay.textContent;
             if(operand1[operand1.length-1] == '.'){
                 topDisplay.textContent = `${operand1}0 -`
@@ -108,7 +132,7 @@ function inputNumber(e) {
             }
             botDisplay.textContent = "";
         }
-        else if(this.id == 'mul' || e.key == '*') {
+        else if((this.id == 'mul' || e.key == '*') && botDisplay.textContent != "") {
             operand1 = botDisplay.textContent;
             if(operand1[operand1.length-1] == '.'){
                 topDisplay.textContent = `${operand1}0 *`
@@ -118,7 +142,7 @@ function inputNumber(e) {
             }
             botDisplay.textContent = "";
         }
-        else if(this.id == 'div' || e.key == '%' || e.key == '/') {
+        else if((this.id == 'div' || e.key == '%' || e.key == '/') && botDisplay.textContent != "") {
             operand1 = botDisplay.textContent;
             if(operand1[operand1.length-1] == '.'){
                 topDisplay.textContent = `${operand1}0 /`
@@ -131,10 +155,6 @@ function inputNumber(e) {
     }
     if(this.id == 'del' || e.key == 'Backspace') {
         botDisplay.textContent = botDisplay.textContent.slice(0, -1);
-        if(botDisplay.textContent == ""){
-            botDisplay.textContent = topDisplay.textContent;
-            topDisplay.textContent = "";
-        }
     }
     else if(this.id == 'clear' || e.key == 'c' || e.key == 'C') {
         botDisplay.textContent = "";
@@ -155,14 +175,11 @@ function inputNumber(e) {
             posState=0;
         }
     }
-    else if(this.id == 'equal' || e.key == 'Enter' || e.key == '=') {
+    else if((this.id == 'equal' || e.key == 'Enter' || e.key == '=') && botDisplay.textContent != "" && operand2 != "") {
         operand2 = Number(botDisplay.textContent);
         operation = topDisplay.textContent[topDisplay.textContent.length-1];
-        operate(operand1, operation, operand2);
+        answer = operate(operand1, operation, operand2);
         topDisplay.textContent = `${operand1} ${operation} ${operand2} =`;
-        if(answer.length>18){
-            answer = answer.toFix(18);
-        }
         botDisplay.textContent = answer;
     }
 }
@@ -222,6 +239,9 @@ function addEffect(e){
     }
     else if(e.key == 'C' || e.key == 'c') {
         key = document.querySelector('#clear');
+    }
+    else if(e.code == 'Space') {
+        key = document.querySelector('#posneg');
     }
     else return;
     key.classList.add('selected');
