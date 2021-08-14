@@ -42,7 +42,10 @@ else if(op == '*') {
 }
 else if(op == '/') {
     let quotient = divide(a,b);
-        if(quotient.length>15){
+        if(b==0){
+            return 'UNDEFINED';
+        }
+        else if(quotient.length>15){
             return quotient.toFixed(4);
         }
         else{
@@ -64,12 +67,7 @@ function multiply(a,b) {
 }
 
 function divide(a,b) {
-    if(b==0){
-        return 'UNDEFINED';
-    }
-    else{
-        return a/b;
-    }
+    return a/b;
 }
 
 function inputNumber(e) {
@@ -176,7 +174,7 @@ function inputNumber(e) {
     else if(this.id == 'equal' || e.key == 'Enter' || e.key == '=') {
         operand2 = Number(botDisplay.textContent);
         operation = topDisplay.textContent[topDisplay.textContent.length-1];
-        if(operand1 != "" && operand2 != "") {
+        if(operand1 !== "" && operand2 !== "") {
             answer = operate(operand1, operation, operand2);
             topDisplay.textContent = `${operand1} ${operation} ${operand2} =`;
             botDisplay.textContent = answer;
