@@ -24,7 +24,7 @@ if(op == '+') {
 }
 else if(op == '-') {
     let difference = subtract(a,b);
-    if(difference.length>15){
+    if(difference.length>10){
         return difference.toFixed(4);
     }
     else{
